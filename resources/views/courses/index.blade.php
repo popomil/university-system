@@ -1,49 +1,67 @@
 @extends('layouts.app')
 
-@section('title', 'Add Course')
+@section('title', 'Courses')
 
 @section('content')
-<div class="container py-5">
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">Add New Course</h4>
-            <a href="{{ route('courses.index') }}" class="btn btn-secondary btn-sm">Back</a>
-        </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
 
-        <div class="card-body">
-            <form action="{{ route('courses.store') }}" method="POST" class="row g-3">
-                @csrf
-
-                <!-- Course Name -->
-                <div class="col-md-6">
-                    <label for="name" class="form-label fw-bold">Course Name</label>
-                    <input type="text" name="name" class="form-control rounded-3" id="name" placeholder="Enter course name" required>
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-building mr-2"></i> Courses
+                    </h3>
+                    <a href="{{ route('courses.create') }}" class="btn btn-dark btn-sm ml-auto">
+                        <i class="fas fa-plus "></i> Add Course
+                    </a>
                 </div>
 
-                <!-- Course Code -->
-                <div class="col-md-6">
-                    <label for="code" class="form-label fw-bold">Course Code</label>
-                    <input type="text" name="code" class="form-control rounded-3" id="code" placeholder="e.g. CS101" required>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover table-striped text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Course Name</th>
+                                <th>Code</th>
+                                <th>Cost</th>
+                                <th>Hours</th>
+                                <th>Department</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($courses as $index => $course)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $course->name }}</td>
+                                    <td>{{ $course->code }}</td>
+                                    <td>{{ $course->cost }}</td>
+                                    <td>{{ $course->hours }}</td>
+                                    <td>{{ $course->department?->name ?? 'N/A' }}</td>
+                                    <td>
+                                        <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-muted">No courses found.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
+            </div>
 
-                <!-- Hours -->
-                <div class="col-md-6">
-                    <label for="hours" class="form-label fw-bold">Hours</label>
-                    <input type="number" name="hours" class="form-control rounded-3" id="hours" placeholder="Enter hours" required>
-                </div>
-
-                <!-- Cost -->
-                <div class="col-md-6">
-                    <label for="cost" class="form-label fw-bold">Cost</label>
-                    <input type="number" name="cost" class="form-control rounded-3" id="cost" placeholder="Enter cost">
-                </div>
-
-                <!-- Actions -->
-                <div class="col-12 d-flex justify-content-end gap-2">
-                    <button type="submit" class="btn btn-success px-4">Save</button>
-                    <a href="{{ route('courses.index') }}" class="btn btn-outline-secondary px-4">Cancel</a>
-                </div>
-            </form>
         </div>
     </div>
 </div>

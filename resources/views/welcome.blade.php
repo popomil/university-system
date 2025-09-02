@@ -5,9 +5,8 @@
 @section('content')
 <section class="hero-section text-center text-white d-flex align-items-center" 
          style="background: url('/images/images (9).jpeg') center/cover no-repeat; 
-                height: 70vh; position: relative; rounded-2">
+                height: 70vh; position: relative">
     <div style="background: rgba(0,0,0,0.5); position:absolute; inset:0;"></div>
-
     <div class="container position-relative">
         <h1 class="fw-bold display-4 mb-3">Welcome to System University 🎓</h1>
         <p class="lead mb-4">Empowering students with modern learning and digital solutions.</p>

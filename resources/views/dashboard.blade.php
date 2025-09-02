@@ -4,11 +4,7 @@
 
 @section('content')
 <div class="container-fluid mt-2">
-
-  {{-- <h4 class="mb-2 text-primary fw-bold text-center">🎓 University Dashboard</h4> --}}
-
   <div class="row g-3">
-
     <!-- Info Boxes -->
     <div class="col-lg-3 col-md-6 col-sm-12">
       <div class="info-box bg-gradient-info shadow-sm">

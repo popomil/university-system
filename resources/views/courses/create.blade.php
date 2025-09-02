@@ -39,18 +39,18 @@
                         </div>
 
                         {{-- Department --}}
-                        <div class="mb-3">
-                            <label for="department_id" class="form-label fw-bold"><i class="fas fa-building"></i> Department</label>
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                <select name="department_id" id="department_id" class="form-control" required>
-                                    <option value="">Select Department</option>
-                                    {{-- @foreach($departments as $department)
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>
-                        </div>
+                       <select name="department_id" id="department_id" class="form-control" required>
+                            <option value="">Select Department</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                    {{ $department->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
+
 
 
                         {{-- Buttons --}}

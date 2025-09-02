@@ -31,11 +31,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/courseInfo') }}"><i class="fas fa-book-open"></i> Courses</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/contact') }}"><i class="fas fa-envelope"></i> Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/contact') }}"><i class="fas fa-envelope"></i> Contact</a>
+                    <a class="nav-link" href="{{ url('/dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                 </li>
             </ul>
 

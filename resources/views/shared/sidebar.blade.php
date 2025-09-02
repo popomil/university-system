@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
 <a href="/" class="brand-link">
-  <img src="/images/logo-png.webp" alt="Logo" class="brand-image img-circle elevation-3"
+  <img src="/images/logo.png" alt="Logo" class="brand-image img-circle elevation-3"
        style="opacity: .8; background: white; padding: 2px;">
   <span class="brand-text font-weight-bold text-light"><span class="text-primary">System University</span></span>
 </a>
