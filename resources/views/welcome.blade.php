@@ -4,8 +4,8 @@
 
 @section('content')
 <section class="hero-section text-center text-white d-flex align-items-center" 
-         style="background: url('/images/premium_photo-1735775899834-24b5b61bc995.avif') center/cover no-repeat; 
-                height: 70vh; position: relative;">
+         style="background: url('/images/images (9).jpeg') center/cover no-repeat; 
+                height: 70vh; position: relative; rounded-2">
     <div style="background: rgba(0,0,0,0.5); position:absolute; inset:0;"></div>
 
     <div class="container position-relative">

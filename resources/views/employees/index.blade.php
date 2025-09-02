@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h3 class="card-title"><i class="fas fa-briefcase me-2"></i> Employees List</h3>
-        <a href="{{ route('employees.create') }}" class="btn btn-success btn-sm float-end ml-auto">
+        <a href="{{ route('employees.create') }}" class="btn btn-success btn-sm">
             <i class="fas fa-plus me-1"></i> Add Employee
         </a>
     </div>
@@ -16,6 +16,8 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Role</th>
+                    <th>Phone</th>
+                    <th>Department</th>
                     <th>Manager</th>
                     <th>Actions</th>
                 </tr>
@@ -25,8 +27,12 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $employee->name }}</td>
+                        <td><span class="badge bg-info">{{ $employee->role }}</span></td>
+                        <td>{{ $employee->phone ?? '-' }}</td>
                         <td>
-                            <span class="badge bg-info">{{ $employee->role }}</span>
+                            <span class="badge bg-primary">
+                                {{ $employee->department ? $employee->department->name : '-' }}
+                            </span>
                         </td>
                         <td>
                             <span class="badge bg-secondary">

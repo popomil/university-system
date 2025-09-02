@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('address');
             $table->enum('gender', ['Male','Female']);
             $table->string('code')->unique();
-            $table->foreignId('doctor_id')->constrained()->onDelete('set null')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('set null');
             $table->timestamps();
         });
     }

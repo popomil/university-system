@@ -4,7 +4,10 @@
         {{-- Logo on the left --}}
         <div class="d-flex align-items-center">
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                🎓 System University
+              <div class="flex mr-2">
+                <a href="#"><img class="rounded-circle" src="/images/logo.png" alt="System University Logo" style="height:50px;"></a>
+              </div>
+                 <span class="text-primary">System University</span>
             </a>
         </div>
 

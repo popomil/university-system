@@ -9,7 +9,6 @@ class StudentController extends Controller
 {
     public function index()
     {
-        // جلب الطلاب مع الدكتور المرتبط
         $students = Student::with('doctor')->get();
         return view('students.index', compact('students'));
     }
@@ -23,10 +22,6 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $student = Student::create($request->all());
-
-        // مش محتاج attach، لأن العمود doctor_id موجود في جدول students
-        // كل طالب مرتبط بدكتور واحد فقط
-
         return redirect()->route('students.index')->with('success', 'Student added successfully');
     }
 

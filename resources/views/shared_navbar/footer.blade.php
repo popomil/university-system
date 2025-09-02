@@ -1,5 +1,5 @@
 <!-- Main Footer -->
-<footer class="main-footer bg-dark text-white pt-5 pb-4" style="">
+<footer class="bg-dark text-white pt-5 pb-4" style="">
   <div class="container">
     <div class="row gy-4">
 
@@ -11,7 +11,7 @@
           to enhance learning and academic excellence.
         </p>
         <div class="mt-3">
-          <a href="#"><img src="/images/university-logo.png" alt="System University Logo" style="height:50px;"></a>
+          <a href="#"><img class="rounded-circle" src="/images/logo.png" alt="System University Logo" style="height:50px;"></a>
         </div>
       </div>
 

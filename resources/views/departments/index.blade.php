@@ -17,11 +17,8 @@
         <a href="{{ route('departments.create') }}" class="btn btn-dark btn-sm">
             <i class="fas fa-plus"></i> Add Department
         </a>
-    </div>
+    </div>H
 </div>
-
-
-
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-striped text-center">
                         <thead class="thead-dark">
