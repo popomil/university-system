@@ -38,10 +38,11 @@
                                     <td>{{ $department->code }}</td>
                                     <td>{{ $department->description }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="" method="POST" class="d-inline">
+                                    <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                        <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">

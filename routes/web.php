@@ -44,11 +44,7 @@ Route::resource('courses', CourseController::class);
 Route::resource('employees', EmployeeController::class);
 
 // Departments
-Route::prefix('departments')->group(function () {
-    Route::get('/', [DepartmentController::class, 'index'])->name('departments.index');
-    Route::get('/create', [DepartmentController::class, 'create'])->name('departments.create');
-    Route::post('/store', [DepartmentController::class, 'store'])->name('departments.store');
-});
+Route::resource('departments', DepartmentController::class);
 
 // Students
 Route::prefix('students')->group(function () {
