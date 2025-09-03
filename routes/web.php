@@ -42,19 +42,9 @@ Route::post('/newregister', [UserController::class, 'store'])->name('newregister
 Route::resource('doctors', DoctorController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('employees', EmployeeController::class);
-
-// Departments
 Route::resource('departments', DepartmentController::class);
-
-// Students
-Route::prefix('students')->group(function () {
-    Route::get('/', [StudentController::class, 'index'])->name('students.index');
-    Route::get('/create', [StudentController::class, 'create'])->name('students.create');
-    Route::post('/store', [StudentController::class, 'store'])->name('students.store');
-    Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('students.edit');
-    Route::put('/{id}', [StudentController::class, 'update'])->name('students.update');
-    Route::delete('/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
-});
+Route::resource('students', StudentController::class);
 
 // Auth routes
 require __DIR__.'/auth.php';
+

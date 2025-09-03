@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
@@ -9,7 +10,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with('doctor')->get();
+        $students = Student::with('doctor')->latest()->paginate(10); // Pagination بدل get()
         return view('students.index', compact('students'));
     }
 
@@ -21,18 +22,24 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $student = Student::create($request->all());
-        return redirect()->route('students.index')->with('success', 'Student added successfully');
-    }
+        // ✅ Validate before insert
+        $validated = $request->validate([
+            'name'       => 'required|string|max:255',
+            'age'        => 'required|integer|min:10|max:100',
+            'address'    => 'required|string|max:255',
+            'gender'     => 'required|in:Male,Female',
+            'code'       => 'required|string|max:50|unique:students,code',
+            'doctor_id'  => 'nullable|exists:doctors,id',
+        ]);
 
-    public function show(string $id)
-    {
-        //
+        Student::create($validated);
+
+        return redirect()->route('students.index')->with('success', 'Student added successfully');
     }
 
     public function edit(string $id)
     {
-        $student = Student::find($id);
+        $student = Student::findOrFail($id);
         $doctors = Doctor::all();
         return view('students.edit', compact('student', 'doctors'));
     }
@@ -40,7 +47,18 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         $student = Student::findOrFail($id);
-        $student->update($request->all());
+
+        // ✅ Validate before update
+        $validated = $request->validate([
+            'name'       => 'required|string|max:255',
+            'age'        => 'required|integer|min:10|max:100',
+            'address'    => 'required|string|max:255',
+            'gender'     => 'required|in:Male,Female',
+            'code'       => 'required|string|max:50|unique:students,code,' . $student->id,
+            'doctor_id'  => 'nullable|exists:doctors,id',
+        ]);
+
+        $student->update($validated);
 
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
@@ -52,7 +70,4 @@ class StudentController extends Controller
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
-
 }
-
-

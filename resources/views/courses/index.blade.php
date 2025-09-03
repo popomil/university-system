@@ -10,14 +10,18 @@
             <div class="card">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h3 class="card-title mb-0">
-                        <i class="fas fa-building mr-2"></i> Courses
+                        <i class="fas fa-book mr-2"></i> Courses
                     </h3>
                     <a href="{{ route('courses.create') }}" class="btn btn-dark btn-sm ml-auto">
-                        <i class="fas fa-plus "></i> Add Course
+                        <i class="fas fa-plus"></i> Add Course
                     </a>
                 </div>
 
                 <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
                     <table class="table table-bordered table-hover table-striped text-center">
                         <thead class="thead-dark">
                             <tr>
@@ -38,18 +42,31 @@
                                     <td>{{ $course->code }}</td>
                                     <td>{{ $course->cost }}</td>
                                     <td>{{ $course->hours }}</td>
-                                    <td>{{ $course->department?->name ?? 'N/A' }}</td>
                                     <td>
-                                        <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-sm btn-warning">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                        <span class="badge bg-info">
+                                            {{ $course->department?->name ?? 'N/A' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (auth()->check() && auth()->user()->role == 'admin')
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="{{ route('courses.edit', $course->id) }}" 
+                                                   class="btn btn-outline-primary btn-sm mr-3">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <form action="{{ route('courses.destroy', $course->id) }}" 
+                                                      method="POST" 
+                                                      onsubmit="return confirm('Are you sure you want to delete this course?')">
+                                                    @csrf
+                                                    @method("DELETE")
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @else
+                                            <span class="text-muted">No Actions</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

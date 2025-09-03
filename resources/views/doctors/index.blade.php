@@ -21,6 +21,9 @@
         <!-- Body -->
         <div class="card-body col-12">
             @if($doctors->count() > 0)
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+             @endif
             <table class="table table-hover table-bordered align-middle text-center mb-0">
                 <thead class="table-secondary">
                     <tr>

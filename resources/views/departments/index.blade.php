@@ -7,58 +7,70 @@
     <div class="row">
         <div class="col-12">
 
-<div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
-        <h3 class="card-title mb-0">
-            <i class="fas fa-building mr-2"></i> Departments
-        </h3>
-    </div>
-    <div class="ml-auto">
-        <a href="{{ route('departments.create') }}" class="btn btn-dark btn-sm">
-            <i class="fas fa-plus"></i> Add Department
-        </a>
-    </div>
-</div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover table-striped text-center">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Department Name</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($departments as $index => $department)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $department->name }}</td>
-                                    <td>{{ $department->code }}</td>
-                                    <td>{{ $department->description }}</td>
-                                    <td>
-                                    <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-                                        <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-muted">No departments found.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-building mr-2"></i> Departments
+                    </h3>
                 </div>
+                <div class="ml-auto">
+                    <a href="{{ route('departments.create') }}" class="btn btn-dark btn-sm">
+                        <i class="fas fa-plus"></i> Add Department
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+
+                <table class="table table-bordered table-hover table-striped text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Department Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($departments as $index => $department)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $department->name }}</td>
+                                <td>{{ $department->code }}</td>
+                                <td>{{ $department->description }}</td>
+                                <td>
+                                    @if (auth()->check() && auth()->user()->role == 'admin')
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('departments.edit', $department->id) }}" 
+                                               class="btn btn-outline-primary btn-sm mr-3">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="{{ route('departments.destroy', $department->id) }}" 
+                                                  method="POST" 
+                                                  onsubmit="return confirm('Are you sure you want to delete this department?')">
+                                                @csrf
+                                                @method("DELETE")
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">No Actions</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-muted">No departments found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
 
         </div>
