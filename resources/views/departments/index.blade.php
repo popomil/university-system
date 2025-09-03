@@ -14,9 +14,11 @@
                     </h3>
                 </div>
                 <div class="ml-auto">
-                    <a href="{{ route('departments.create') }}" class="btn btn-dark btn-sm">
-                        <i class="fas fa-plus"></i> Add Department
-                    </a>
+                     @if (auth()->check() && auth()->user()->role == 'admin')
+                        <a href="{{ route('departments.create') }}" class="btn btn-dark btn-sm">
+                            <i class="fas fa-plus"></i> Add Department
+                        </a>
+                    @endif
                 </div>
             </div>
 
@@ -60,7 +62,9 @@
                                             </form>
                                         </div>
                                     @else
-                                        <span class="text-muted">No Actions</span>
+                                <span class="text-warning fw-bold">
+                                    Access Denied: Only Admin Can Edit/Delete
+                                </span>
                                     @endif
                                 </td>
                             </tr>

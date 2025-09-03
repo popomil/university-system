@@ -4,9 +4,11 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h3 class="card-title"><i class="fas fa-briefcase me-2"></i> Employees List</h3>
-        <a href="{{ route('employees.create') }}" class="btn btn-success btn-sm ml-auto">
-            <i class="fas fa-plus me-1"></i> Add Employee
-        </a>
+         @if (auth()->check() && auth()->user()->role == 'admin')
+            <a href="{{ route('employees.create') }}" class="btn btn-success btn-sm ml-auto">
+                <i class="fas fa-plus me-1"></i> Add Employee
+            </a>
+        @endif
     </div>
 
     <div class="card-body table-responsive">
@@ -58,7 +60,9 @@
                                     </form>
                                 </div>
                             @else
-                                <span class="text-muted">No Actions</span>
+                                <span class="text-warning fw-bold">
+                                    Access Denied: Only Admin Can Edit/Delete
+                                </span>
                             @endif
                         </td>
                     </tr>

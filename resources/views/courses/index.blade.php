@@ -12,9 +12,11 @@
                     <h3 class="card-title mb-0">
                         <i class="fas fa-book mr-2"></i> Courses
                     </h3>
-                    <a href="{{ route('courses.create') }}" class="btn btn-dark btn-sm ml-auto">
-                        <i class="fas fa-plus"></i> Add Course
-                    </a>
+                     @if (auth()->check() && auth()->user()->role == 'admin')
+                        <a href="{{ route('courses.create') }}" class="btn btn-dark btn-sm ml-auto">
+                            <i class="fas fa-plus"></i> Add Course
+                        </a>
+                     @endif
                 </div>
 
                 <div class="card-body">
@@ -71,7 +73,9 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-muted">No courses found.</td>
+                                    <span class="text-warning fw-bold">
+                                        Access Denied: Only Admin Can Edit/Delete
+                                    </span>
                                 </tr>
                             @endforelse
                         </tbody>
